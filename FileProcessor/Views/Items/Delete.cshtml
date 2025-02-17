@@ -1,0 +1,24 @@
+﻿@model FileProcessor.Models.Item
+@{
+    ViewData["Title"] = "Delete Item";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-3 text-danger">Confirm Delete</h2>
+
+    <div class="card shadow-lg p-4 rounded">
+        <p>Are you sure you want to delete the following item?</p>
+
+        <ul>
+            <li><strong>Item Name:</strong> @Model.Name</li>
+            <li><strong>Description:</strong> @Model.Description</li>
+            <li><strong>File:</strong> @Model.File</li>
+        </ul>
+
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-danger">Yes, Delete</button>
+            <a asp-action="Overview" class="btn btn-secondary ms-2">Cancel</a>
+        </form>
+    </div>
+</div>

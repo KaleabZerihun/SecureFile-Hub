@@ -1,0 +1,75 @@
+﻿@model IEnumerable<FileProcessor.Models.Item>
+@{
+    ViewData["Title"] = "Overview";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-3">Items Overview</h2>
+    <!-- Search & Filter Form -->
+    <form method="get" asp-action="Overview" class="mb-3">
+        <div class="row">
+            <!-- Search by Name -->
+            <div class="col-md-4">
+                <input type="text" name="searchTerm" class="form-control" placeholder="Search by name or description" value="@Context.Request.Query["searchTerm"]" />
+            </div>
+
+            <!-- Filter by File Type -->
+            <div class="col-md-3">
+                <select name="fileType" class="form-control">
+                    <option value="">All Types</option>
+                    <option value="image/" selected="@(Context.Request.Query["fileType"] == "image/" ? "selected" : null)">Images</option>
+                    <option value="application/pdf" selected="@(Context.Request.Query["fileType"] == "application/pdf" ? "selected" : null)">PDFs</option>
+                    <option value="text/" selected="@(Context.Request.Query["fileType"] == "text/" ? "selected" : null)">Text Files</option>
+                </select>
+            </div>
+
+            <!-- Search Button -->
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="card shadow-lg p-4 rounded">
+        <table class="table table-borderless">
+            <thead>
+                <tr>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <th>Item Id</th>
+                        <th>Item Owner</th>
+                    }
+                    <th>Item Name</th>
+                    <th>Description</th>
+                    <th>File</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <td>@item.Id</td>
+                            <td>@(item.User?.UserName ?? "Unknown User")</td> <!-- Prevent NullReferenceException -->
+                        }
+                        <td>@item.Name</td>
+                        <td>@item.Description</td>
+                        <td>@item.File</td>
+                        <td>
+                            <a asp-action="Download" target="_blank" asp-route-id="@item.Id" class="btn btn-sm btn-secondary">Download</a>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-secondary">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-secondary">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @if (!Model.Any()) 
+        {
+            <div class="alert alert-warning text-center">No items found.</div>
+        }
+        <a asp-action="Create" class="btn btn-primary">Add New Item</a>
+    </div>
+</div>

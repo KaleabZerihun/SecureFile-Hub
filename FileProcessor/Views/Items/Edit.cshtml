@@ -1,0 +1,35 @@
+﻿@model FileProcessor.Models.Item
+@{
+    ViewData["Title"] = "Edit Item";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-3">Edit Item</h2>
+
+    <div class="card shadow-lg p-4 rounded">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="File" /> 
+
+            <div class="mb-2">
+                <label class="form-label">Item Name</label>
+                <input type="text" class="form-control" asp-for="Name" required />
+            </div>
+
+            <div class="mb-2">
+                <label class="form-label">Description</label>
+                <textarea class="form-control" asp-for="Description" rows="3" required></textarea>
+            </div>
+
+
+            <div class="mb-2">
+                <label class="form-label">Upload New File (optional)</label>
+                <input type="file" name="file" class="form-control" />
+                <small class="text-muted">Uploading a new file will replace the old one.</small>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Update</button>
+            <a asp-action="Overview" class="btn btn-secondary ms-2">Cancel</a>
+        </form>
+    </div>
+</div>
