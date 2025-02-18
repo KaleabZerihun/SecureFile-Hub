@@ -14,3 +14,18 @@ SecureFileHub is a secure file management system built with **ASP.NET Core MVC**
 - .NET 7+
 - SQL Server
 - Visual Studio 2022+
+## Required .NET Packages
+## File Upload to Database
+- dotnet add package System.IO
+- dotnet add package Microsoft.AspNetCore.StaticFiles
+## User Authentication & Identity
+- dotnet add package Microsoft.AspNetCore.Identity
+- dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore
+- dotnet add package Microsoft.AspNetCore.Identity.UI
+## Database & Entity Framework Core
+- dotnet add package Microsoft.EntityFrameworkCore
+- dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+- dotnet add package Microsoft.EntityFrameworkCore.Tools
+
+
+
